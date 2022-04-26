@@ -1,0 +1,12 @@
+:root {
+  --color-primary: hsl(321, 73%, 50%);
+  --color-primary-dark: hsl(321, 73%, 35%);
+  --color-primary-light: hsl(321, 73%, 65%);
+
+  --color-gray: hsl(0, 0%, 45%);
+  --color-gray-dark: hsl(0, 0%, 15%);
+  --color-gray-light: hsl(0, 0%, 75%);
+
+  --color-background: var(--color-gray-dark);
+  --color-font: var(--color-gray-light);
+}
