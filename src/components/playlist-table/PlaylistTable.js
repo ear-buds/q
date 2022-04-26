@@ -1,4 +1,4 @@
-import './PlaylistTable.css';
+import "./PlaylistTable.css";
 
 function PlaylistTable() {
   return <div>Playlist Table</div>;

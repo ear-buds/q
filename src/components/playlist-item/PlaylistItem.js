@@ -1,4 +1,4 @@
-import './PlaylistItem.css';
+import "./PlaylistItem.css";
 
 function PlaylistItem() {
   return <div>Playlist Item</div>;

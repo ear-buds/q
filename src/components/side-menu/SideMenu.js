@@ -1,4 +1,4 @@
-import './SideMenu.css';
+import "./SideMenu.css";
 
 function SideMenu() {
   return <div>Side Menu</div>;
