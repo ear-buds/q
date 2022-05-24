@@ -1,5 +1,5 @@
 import "./SideMenu.css";
-import Logo from "../Logo";
+import Logo from "../ui-elements/Logo";
 
 function SideMenu() {
   return <Logo height="100" width="100" color="rgb(221,34,155)" />;
