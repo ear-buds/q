@@ -2,14 +2,18 @@ import "./PlaylistTable.css";
 
 function PlaylistTable() {
   return (
-    <div className="table">
-      <div className="table-column">#</div>
-      <div className="table-column">Name</div>
-      <div className="table-column">Album</div>
-      <div className="table-column">Date Added</div>
-      <div className="table-column"></div>
-      <div className="table-column">Length</div>
-    </div>
+    <table className="table-auto">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Album</th>
+          <th>Date Added</th>
+          <th></th>
+          <th>Length</th>
+        </tr>
+      </thead>
+    </table>
   );
 }
 
