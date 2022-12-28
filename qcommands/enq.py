@@ -1,3 +1,19 @@
-@tree.command(name = "enq", description = "My first application Command") 
-async def first_command(interaction):
-    await interaction.response.send_message("`enq` called!")
+# import discord
+from discord.ext import commands
+
+class EnqCog(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("EnqCog is cogging.")
+
+    @commands.command()
+    async def enq(self, ctx):
+        embed = discord.Embed(title="Help commands", description="Shows various help commands")
+        embed.add_field(name="Show this help", value = "`/enq`", inline = False)
+        await ctx.send(embed=embed)
+
+async def setup(bot):
+    await bot.add_cog(EnqCog(bot))
