@@ -7,37 +7,44 @@
           ###
 
 # For loading the secrets
-import os, sys
+import os, sys, asyncio
 from dotenv import load_dotenv
 import inspect
 # Discord libraries
 import discord
 from discord.ext import commands
 
-# Import commands for q
-from qcommands import help
-from qcommands import myq
-from qcommands import enq
-from qcommands import deq
-from qcommands import getq
-from qcommands import register
-
-
-# Load the secrets
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-
-# Start the bot
-bot = commands.Bot(command_prefix="/", intents=discord.Intents.default())
-
-# Register cogs for commands
-# await bot.add_cog(Help(bot))
-
-# Signal that the bot has connected
-@bot.event
-async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
-    # await bot.add_cog(help.HelpCog(bot))
+async def load_extensions(bot):
+    for commandfile in os.listdir("qcommands"):
+        if commandfile.endswith(".py") and not commandfile.startswith("_"):
+            # Remove filetype
+            commandfile = commandfile[:-3] # negative slice
+            # Construct the dot name
+            dot_name = f"qcommands.{commandfile}"
+            await bot.load_extension(f"{dot_name}")
 
 # Start the bot!
-bot.run(TOKEN)
+async def main(TOKEN):
+    # Start the bot
+    intents = discord.Intents.default()
+    intents.message_content = True
+    async with commands.Bot(command_prefix="/", intents=intents) as bot:
+        # Signal that the bot has connected
+        @bot.event
+        async def on_ready():
+            print(f'{bot.user} has connected to Discord!')
+
+        # Load Extensions
+        await load_extensions(bot)
+        # Start the event loop -- missing logging, though
+        await bot.start(TOKEN)
+        
+# This is the "Main" function
+## Essentially it just detects that the code is being executed from running
+## this file, as opposed to running it from some other file
+if __name__ == "__main__":
+    # Load the secrets
+    load_dotenv()
+    TOKEN = os.getenv('DISCORD_TOKEN')
+    # Start the bot
+    asyncio.run(main(TOKEN))
