@@ -14,7 +14,7 @@ class EnqCog(commands.Cog):
 
     @app_commands.command(description="Add to my Q.")
     @app_commands.default_permissions(administrator=True)
-    async def myq(self, interaction : discord.Interaction, echo : str) -> None:
+    async def enq(self, interaction : discord.Interaction, echo : str) -> None:
         logging.info("Enq Command called.")
         await interaction.response.send_message(echo)
         return

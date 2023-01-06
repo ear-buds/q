@@ -14,7 +14,7 @@ class GetqCog(commands.Cog):
 
     @app_commands.command(description="Get my Q.")
     @app_commands.default_permissions(administrator=True)
-    async def myq(self, interaction : discord.Interaction, echo : str) -> None:
+    async def getq(self, interaction : discord.Interaction, echo : str) -> None:
         logging.info("Getq Command called.")
         await interaction.response.send_message(echo)
         return

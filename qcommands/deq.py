@@ -14,7 +14,7 @@ class DeqCog(commands.Cog):
 
     @app_commands.command(description="Remove from my Q.")
     @app_commands.default_permissions(administrator=True)
-    async def myq(self, interaction : discord.Interaction, echo : str) -> None:
+    async def deq(self, interaction : discord.Interaction, echo : str) -> None:
         logging.info("Deq Command called.")
         await interaction.response.send_message(echo)
         return
