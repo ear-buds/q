@@ -1,5 +1,8 @@
-# import discord
+import logging
+# Discord.py
+import discord
 from discord.ext import commands
+from discord import app_commands 
 
 class RegisterCog(commands.Cog):
     def __init__(self, bot):
@@ -7,13 +10,14 @@ class RegisterCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print("RegisterCog is cogging.")
+        logging.info("RegisterCog is cogging.")
 
-    @commands.command()
-    async def register(self, ctx):
-        embed = discord.Embed(title="Help commands", description="Shows various help commands")
-        embed.add_field(name="Show this help", value = "`/register`", inline = False)
-        await ctx.send(embed=embed)
+    @app_commands.command(description="Register a user.")
+    @app_commands.default_permissions(administrator=True)
+    async def myq(self, interaction : discord.Interaction, echo : str) -> None:
+        logging.info("Register Command called.")
+        await interaction.response.send_message(echo)
+        return
 
 async def setup(bot):
     await bot.add_cog(RegisterCog(bot))
