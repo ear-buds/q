@@ -1,5 +1,8 @@
+import logging
+# Discord.py
 import discord
 from discord.ext import commands
+from discord import app_commands 
 
 class MyqCog(commands.Cog):
     def __init__(self, bot):
@@ -7,13 +10,21 @@ class MyqCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print("MyqCogs is cogging.")
+        logging.info("MyqCog is cogging.")
 
     @commands.command()
-    async def myq(self, ctx):
-        embed = discord.Embed(title="Help commands", description="Shows various help commands")
-        embed.add_field(name="Show this help", value = "`/myq`", inline = False)
-        await ctx.send(embed=embed)
+    async def sync(self, ctx) -> None:
+        cmds = await ctx.bot.tree.sync()
+        self.bot.tree.copy_global_to(guild=ctx.guild)
+        await ctx.send(f"{len(cmds)} commands are synced.")
+        return
+
+    @app_commands.command(description="Show my Q.")
+    @app_commands.default_permissions(administrator=True)
+    async def myq(self, interaction : discord.Interaction, echo : str) -> None:
+        logging.info("Myq Command called.")
+        await interaction.response.send_message(echo)
+        return
 
 async def setup(bot):
     await bot.add_cog(MyqCog(bot))

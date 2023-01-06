@@ -6,14 +6,19 @@
         ####
           ###
 
-# For loading the secrets
+##### For loading the secrets
 import os, sys, asyncio
 from dotenv import load_dotenv
-import inspect
-# Discord libraries
+
+##### Discord libraries
 import discord
 from discord.ext import commands
 
+##### Set up logging
+import logging
+discord.utils.setup_logging()
+
+##### Load all the commands
 async def load_extensions(bot):
     for commandfile in os.listdir("qcommands"):
         if commandfile.endswith(".py") and not commandfile.startswith("_"):
@@ -32,8 +37,7 @@ async def main(TOKEN):
         # Signal that the bot has connected
         @bot.event
         async def on_ready():
-            print(f'{bot.user} has connected to Discord!')
-
+            logging.info(f'{bot.user} has connected to Discord!')
         # Load Extensions
         await load_extensions(bot)
         # Start the event loop -- missing logging, though
